@@ -1,0 +1,35 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jest/recommended"
+  ],
+  "plugins": [
+    "import",
+    "react-hooks"
+  ],
+  "settings": {
+    "react": {
+    "version": "detect"
+    }
+  },
+  "rules": {
+    // Javascript
+    "semi": ["error", "always"],
+    "comma-dangle": ["error", "always-multiline"],
+    "import/newline-after-import": ["error", { "count": 2 }],
+    "no-dupe-keys": "error",
+    "key-spacing": ["error", { "beforeColon": false }],
+    "indent": [ "error", 2 ],
+    "quotes": ["error", "single"],
+    "linebreak-style": ["error", "unix"],
+    // React
+    "react/prop-types": "off"
+  }
+}
