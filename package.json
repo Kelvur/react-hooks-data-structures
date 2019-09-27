@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src --out-dir=lib --ignore=**/*.test.js",
+    "prepack": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint src",
