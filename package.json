@@ -1,7 +1,7 @@
 {
-  "name": "react-data-structures",
+  "name": "react-hooks-data-structures",
   "version": "0.0.1",
-  "description": "",
+  "description": "This library provides you with basic data structures throught React hooks",
   "main": "index.js",
   "scripts": {
     "build": "babel src --out-dir=lib --ignore=**/*.test.js",
@@ -13,12 +13,13 @@
   },
   "keywords": [
     "react",
+    "hooks",
     "data",
     "structures",
     "data structures"
   ],
   "author": "@kelvur <Osorio10.92@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "babel": {
     "presets": [
       [
