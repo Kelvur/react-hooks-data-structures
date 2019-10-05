@@ -20,6 +20,12 @@
   ],
   "author": "@kelvur <Osorio10.92@gmail.com>",
   "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "concurrently \"npm:lint\" \"npm:test\""
+    }
+  },
   "babel": {
     "presets": [
       [
