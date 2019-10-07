@@ -1,4 +1,4 @@
-import LinkedList from './LinkedList';
+import * as LinkedList from './LinkedList';
 
 
 const DataStructures = {
