@@ -2,6 +2,14 @@
 import LinkedListNode from './LinkedListNode';
 
 
+function generateIndexLessThatZeroError(){
+  return new RangeError('LinkedList - The argument Index cannot be less than zero');
+}
+
+function generateOutOfRangeError(){
+  return new RangeError('LinkedList - The argument Index is out of range');
+}
+
 function LinkedList(){
   let head = undefined;
   const sideEffect = {
@@ -25,8 +33,11 @@ function LinkedList(){
   }
 
   function get(index){
-    if(index < 0 || head === undefined){
-      return undefined;
+    if(index < 0){
+      throw generateIndexLessThatZeroError();
+    }
+    if(head === undefined){
+      throw new generateOutOfRangeError();
     }
     let current = head;
     let i = 0;
@@ -37,12 +48,18 @@ function LinkedList(){
       i++;
       current = current.getNext();
     }
-    return i === index ? current.getValue() : undefined;
+    if(i !== index){
+      throw generateOutOfRangeError();
+    }
+    return current.getValue();
   }
 
   function remove(index){
-    if(index < 0 || head === undefined){
-      return undefined;
+    if(index < 0){
+      throw generateIndexLessThatZeroError();
+    }
+    if(head === undefined){
+      throw new generateOutOfRangeError();
     }
     // Case: remove index 0
     if(index === 0){
@@ -61,13 +78,13 @@ function LinkedList(){
       previous = current;
       current = current.getNext();
     }
-    if(i === index){
-      const value = current.getValue();
-      previous.setNext(current.getNext());
-      current.destroy();
-      return value;
+    if(i !== index){
+      throw generateOutOfRangeError();
     }
-    return undefined;
+    const value = current.getValue();
+    previous.setNext(current.getNext());
+    current.destroy();
+    return value;
   }
 
   function destroy(){
