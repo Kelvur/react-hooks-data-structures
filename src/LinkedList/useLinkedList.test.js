@@ -107,11 +107,13 @@ describe('useLinkedList', () => {
   it('trigger a render when the component remove a value', () => {
     const TestComponent = () => {
       const counter = useRef(0);
-      const value = 'Monty';
+      const valueOne = 'Monty';
+      const valueTwo = 'Python';
       const linkedList = useLinkedList();
 
       if(counter.current === 0){
-        linkedList.add(value);
+        linkedList.add(valueOne);
+        linkedList.add(valueTwo);
       }
 
       if(counter.current === 1){
@@ -120,7 +122,7 @@ describe('useLinkedList', () => {
 
       if(counter.current === 2){
         // Assert
-        expect(linkedList.get(0)).toBe(undefined);
+        expect(linkedList.get(0)).toBe(valueTwo);
       }
 
       counter.current++;
