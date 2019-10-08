@@ -42,23 +42,28 @@ describe('LinkedList', () => {
     expect(linkedList.get(2)).toBe(terry);
   });
 
-  it('get function should return undefined when index < 0', () => {
+  it('get function should throws a RangeError exception when index < 0', () => {
     const linkedList = LinkedList();
 
-    const result = linkedList.get(-45);
-
-    expect(result).toBe(undefined);
+    try{
+      linkedList.get(-45);
+    } catch(error) {
+      expect(error instanceof RangeError).toBe(true);
+    }
   });
 
-  it('get function should return undefined when index out of range', () => {
+  it('get function should throws a RangeError exception when index out of range', () => {
     const linkedList = LinkedList();
 
     linkedList.add('x');
     linkedList.add('y');
     linkedList.add('z');
-    const result = linkedList.get(86);
 
-    expect(result).toBe(undefined);
+    try{
+      linkedList.get(86);
+    } catch(error) {
+      expect(error instanceof RangeError).toBe(true);
+    }
   });
 
   it('remove function should return the same reference of the added value', () => {
@@ -89,23 +94,28 @@ describe('LinkedList', () => {
     expect(referenceC).toBe(objectReferenceC);
   });
 
-  it('remove function should return undefined when index < 0', () => {
+  it('remove function should throws a RangeError exception when index < 0', () => {
     const linkedList = LinkedList();
 
-    const result = linkedList.remove(-45);
-
-    expect(result).toBe(undefined);
+    try{
+      linkedList.remove(-45);
+    } catch(error) {
+      expect(error instanceof RangeError).toBe(true);
+    }
   });
 
-  it('remove function should return undefined when index out of range', () => {
+  it('remove function should throws a RangeError exception when index out of range', () => {
     const linkedList = LinkedList();
 
     linkedList.add('x');
     linkedList.add('y');
     linkedList.add('z');
-    const result = linkedList.remove(32);
 
-    expect(result).toBe(undefined);
+    try{
+      linkedList.remove(32);
+    } catch(error) {
+      expect(error instanceof RangeError).toBe(true);
+    }
   });
 
   it('destroy function should empty the LinkedList', () => {
@@ -132,7 +142,7 @@ describe('LinkedList', () => {
     expect(generator.next().value).toBe('z');
   });
 
-  it('LinkedList it\'s a iterator', () => {
+  it('\'s a iterator', () => {
     const linkedList = LinkedList();
 
     linkedList.add('x');
@@ -168,6 +178,7 @@ describe('LinkedList', () => {
     const sideEffect = () => {
       expect(true).toBe(true);
     };
+    linkedList.add('y');
 
     linkedList.setSideEffect(sideEffect);
 
