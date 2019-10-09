@@ -74,6 +74,35 @@ describe('useLinkedList', () => {
     });
   });
 
+  it('trigger a render when the component set a value', () => {
+    const TestComponent = () => {
+      const counter = useRef(0);
+      const originalValue = 'Monty';
+      const replaceValue = 'Python';
+      const linkedList = useLinkedList();
+
+      if(counter.current === 0){
+        linkedList.add(originalValue);
+      }
+
+      if(counter.current === 1){
+        linkedList.set(0, replaceValue);
+      }
+
+      if(counter.current === 2){
+        // Assert
+        expect(linkedList.get(0)).toBe(replaceValue);
+      }
+
+      counter.current++;
+      return <span>Hello</span>;
+    };
+
+    act(() => {
+      render(<TestComponent />, container);
+    });
+  });
+
   it('updating the component multiple times only trigger one render', () => {
     const TestComponent = () => {
       const counter = useRef(0);
