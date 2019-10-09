@@ -52,7 +52,7 @@ describe('LinkedList', () => {
     }
   });
 
-  it('get function should throws a RangeError exception when index out of range', () => {
+  it('get function should throws a RangeError exception when index is out of range', () => {
     const linkedList = LinkedList();
 
     linkedList.add('x');
@@ -62,6 +62,55 @@ describe('LinkedList', () => {
     try{
       linkedList.get(86);
     } catch(error) {
+      expect(error instanceof RangeError).toBe(true);
+    }
+  });
+
+  it('set function should set the correct value in the indicated index', () => {
+    const linkedList = LinkedList();
+    const value = 'Coconut';
+    linkedList.add('x');
+    linkedList.add('y');
+    linkedList.add('z');
+
+    linkedList.set(1, value);
+
+    expect(linkedList.get(0)).toBe('x');
+    expect(linkedList.get(1)).toBe(value);
+    expect(linkedList.get(2)).toBe('z');
+  });
+
+  it('set function should the previous value', () => {
+    const linkedList = LinkedList();
+    const john = 'John Cleese';
+    const graham = 'Graham Chapman';
+    const terry = 'Terry Gilliam';
+    linkedList.add(john);
+    linkedList.add(graham);
+    linkedList.add(terry);
+
+    const returnedValue = linkedList.set(0, 'Coconut');
+
+    expect(returnedValue).toBe(john);
+  });
+
+  it('set function should throw a RangeError exception when the index < zero', () => {
+    const linkedList = LinkedList();
+
+    try {
+      linkedList.set(-6, 'Horse');
+    }catch(error){
+      expect(error instanceof RangeError).toBe(true);
+    }
+  });
+
+  it('set function should throw a RangeError exception when the index is out of range', () => {
+    const linkedList = LinkedList();
+    linkedList.add('x');
+
+    try {
+      linkedList.set(38, 'Horse');
+    }catch(error){
       expect(error instanceof RangeError).toBe(true);
     }
   });
@@ -104,7 +153,7 @@ describe('LinkedList', () => {
     }
   });
 
-  it('remove function should throws a RangeError exception when index out of range', () => {
+  it('remove function should throws a RangeError exception when index is out of range', () => {
     const linkedList = LinkedList();
 
     linkedList.add('x');
@@ -171,6 +220,17 @@ describe('LinkedList', () => {
     linkedList.setSideEffect(sideEffect);
 
     linkedList.add('x');
+  });
+
+  it('execute sideEffect after set', () => {
+    const linkedList = LinkedList();
+    const sideEffect = () => {
+      expect(true).toBe(true);
+    };
+    linkedList.add('x');
+    linkedList.setSideEffect(sideEffect);
+
+    linkedList.set(0, 'y');
   });
 
   it('execute sideEffect after remove', () => {

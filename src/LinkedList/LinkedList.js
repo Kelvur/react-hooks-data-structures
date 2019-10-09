@@ -10,6 +10,19 @@ function generateOutOfRangeError(){
   return new RangeError('LinkedList - The argument Index is out of range');
 }
 
+function validateIndex(index){
+  if(index < 0) throw generateIndexLessThatZeroError();
+}
+
+function validateHead(head){
+  if(head === undefined) throw generateOutOfRangeError();
+}
+
+function validateIndexAndHead(index, head){
+  validateIndex(index);
+  validateHead(head);
+}
+
 function LinkedList(){
   let head = undefined;
   const sideEffect = {
@@ -33,12 +46,8 @@ function LinkedList(){
   }
 
   function get(index){
-    if(index < 0){
-      throw generateIndexLessThatZeroError();
-    }
-    if(head === undefined){
-      throw new generateOutOfRangeError();
-    }
+    validateIndexAndHead(index, head);
+
     let current = head;
     let i = 0;
     while(current.getNext()){
@@ -54,13 +63,30 @@ function LinkedList(){
     return current.getValue();
   }
 
+  function set(index, value){
+    validateIndexAndHead(index, head);
+
+    let current = head;
+    let i = 0;
+    while(current.getNext()){
+      if(i === index){
+        break;
+      }
+      i++;
+      current = current.getNext();
+    }
+    if(i !== index){
+      throw generateOutOfRangeError();
+    }
+
+    const previousValue = current.getValue();
+    current.setValue(value);
+    return previousValue;
+  }
+
   function remove(index){
-    if(index < 0){
-      throw generateIndexLessThatZeroError();
-    }
-    if(head === undefined){
-      throw new generateOutOfRangeError();
-    }
+    validateIndexAndHead(index, head);
+
     // Case: remove index 0
     if(index === 0){
       const value = head.getValue();
@@ -123,6 +149,7 @@ function LinkedList(){
   return {
     add: _runSideEffectAfter(add),
     get,
+    set: _runSideEffectAfter(set),
     remove: _runSideEffectAfter(remove),
     destroy: _runSideEffectAfter(destroy),
     getValues,
