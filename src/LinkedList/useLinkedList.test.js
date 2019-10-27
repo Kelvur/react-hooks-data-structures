@@ -184,7 +184,11 @@ describe('useLinkedList', () => {
 
       if(counter.current === 2){
         // Assert
-        expect(linkedList.get(0)).toBe(undefined);
+        try{
+          linkedList.get(0);
+        } catch(error){
+          expect(error instanceof RangeError).toBe(true);
+        }
       }
 
       counter.current++;
