@@ -8,7 +8,7 @@ describe('LinkedList', () => {
     expect(linkedList).not.toBe(undefined);
   });
 
-  it('add function should return the index of the value', () => {
+  test('add function should return the index of the value', () => {
     const newValue = 'John Cleese';
     const linkedList = LinkedList();
 
@@ -17,17 +17,17 @@ describe('LinkedList', () => {
     expect(index).toBe(0);
   });
 
-  it('get function should return the same reference of the added value', () => {
+  test('get function should return the same reference of the added value', () => {
     const linkedList = LinkedList();
     const objectReference = {monty: 'Python'};
 
     linkedList.add(objectReference);
-    const getReference = linkedList.get(0);
+    const reference = linkedList.get(0);
 
-    expect(getReference).toBe(objectReference);
+    expect(reference).toBe(objectReference);
   });
 
-  it('get function should return the same reference of the added values', () => {
+  test('get function should return the same reference of the added values', () => {
     const john = 'John Cleese';
     const graham = 'Graham Chapman';
     const terry = 'Terry Gilliam';
@@ -42,7 +42,7 @@ describe('LinkedList', () => {
     expect(linkedList.get(2)).toBe(terry);
   });
 
-  it('get function should throws a RangeError exception when index < 0', () => {
+  test('get function should throws a RangeError exception when index < 0', () => {
     const linkedList = LinkedList();
 
     try{
@@ -52,7 +52,7 @@ describe('LinkedList', () => {
     }
   });
 
-  it('get function should throws a RangeError exception when index is out of range', () => {
+  test('get function should throws a RangeError exception when index is out of range', () => {
     const linkedList = LinkedList();
 
     linkedList.add('x');
@@ -66,7 +66,7 @@ describe('LinkedList', () => {
     }
   });
 
-  it('set function should set the correct value in the indicated index', () => {
+  test('set function should set the correct value in the indicated index', () => {
     const linkedList = LinkedList();
     const value = 'Coconut';
     linkedList.add('x');
@@ -80,7 +80,7 @@ describe('LinkedList', () => {
     expect(linkedList.get(2)).toBe('z');
   });
 
-  it('set function should the previous value', () => {
+  test('set function should return the previous value', () => {
     const linkedList = LinkedList();
     const john = 'John Cleese';
     const graham = 'Graham Chapman';
@@ -94,7 +94,7 @@ describe('LinkedList', () => {
     expect(returnedValue).toBe(john);
   });
 
-  it('set function should throw a RangeError exception when the index < zero', () => {
+  test('set function should throw a RangeError exception when the index < zero', () => {
     const linkedList = LinkedList();
 
     try {
@@ -104,7 +104,7 @@ describe('LinkedList', () => {
     }
   });
 
-  it('set function should throw a RangeError exception when the index is out of range', () => {
+  test('set function should throw a RangeError exception when the index is out of range', () => {
     const linkedList = LinkedList();
     linkedList.add('x');
 
@@ -115,7 +115,7 @@ describe('LinkedList', () => {
     }
   });
 
-  it('remove function should return the same reference of the added value', () => {
+  test('remove function should return the same reference of the added value', () => {
     const linkedList = LinkedList();
     const objectReference = {monty: 'Python'};
 
@@ -125,7 +125,7 @@ describe('LinkedList', () => {
     expect(reference).toBe(objectReference);
   });
 
-  it('remove function should return the same reference of the added values', () => {
+  test('remove function should return the same reference of the added values', () => {
     const linkedList = LinkedList();
     const objectReferenceA = {monty: 'Python'};
     const objectReferenceB = {holy: 'Grail'};
@@ -143,7 +143,7 @@ describe('LinkedList', () => {
     expect(referenceC).toBe(objectReferenceC);
   });
 
-  it('remove function should throws a RangeError exception when index < 0', () => {
+  test('remove function should throws a RangeError exception when index < 0', () => {
     const linkedList = LinkedList();
 
     try{
@@ -153,7 +153,7 @@ describe('LinkedList', () => {
     }
   });
 
-  it('remove function should throws a RangeError exception when index is out of range', () => {
+  test('remove function should throws a RangeError exception when index is out of range', () => {
     const linkedList = LinkedList();
 
     linkedList.add('x');
@@ -167,7 +167,7 @@ describe('LinkedList', () => {
     }
   });
 
-  it('destroy function should empty the LinkedList', () => {
+  test('destroy function should empty the LinkedList', () => {
     const linkedList = LinkedList();
 
     linkedList.add('x');
@@ -182,7 +182,7 @@ describe('LinkedList', () => {
     }
   });
 
-  it('getValues function return all the values', () => {
+  test('getValues function return all the values', () => {
     const linkedList = LinkedList();
 
     linkedList.add('x');
