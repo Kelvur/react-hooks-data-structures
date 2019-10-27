@@ -175,7 +175,11 @@ describe('LinkedList', () => {
     linkedList.add('z');
     linkedList.destroy();
 
-    expect(linkedList.get(0)).toBe(undefined);
+    try{
+      linkedList.get(0);
+    } catch(error) {
+      expect(error instanceof RangeError).toBe(true);
+    }
   });
 
   it('getValues function return all the values', () => {
