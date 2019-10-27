@@ -3,11 +3,11 @@ import LinkedListNode from './LinkedListNode';
 
 
 function generateIndexLessThatZeroError(){
-  return new RangeError('LinkedList - The argument Index cannot be less than zero');
+  return new RangeError('The argument Index cannot be less than zero');
 }
 
 function generateOutOfRangeError(){
-  return new RangeError('LinkedList - The argument Index is out of range');
+  return new RangeError('The argument Index is out of range');
 }
 
 function validateIndex(index){
@@ -120,6 +120,7 @@ function LinkedList(){
       current.destroy();
       current = next;
     }
+    head = undefined;
   }
 
   function *getValues(){
