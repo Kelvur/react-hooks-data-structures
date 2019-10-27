@@ -120,6 +120,7 @@ function LinkedList(){
       current.destroy();
       current = next;
     }
+    head = undefined;
   }
 
   function *getValues(){
