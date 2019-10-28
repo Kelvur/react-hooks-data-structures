@@ -1,6 +1,6 @@
 {
   "name": "react-hooks-data-structures",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "This library provides you with basic data structures throught React hooks",
   "main": "index.js",
   "scripts": {
