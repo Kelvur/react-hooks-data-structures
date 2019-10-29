@@ -167,6 +167,40 @@ describe('LinkedList', () => {
     }
   });
 
+  test('getLength function should return 0 when the LinkedList is empty', () => {
+    const linkedList = LinkedList();
+
+    expect(linkedList.getLength()).toBe(0);
+  });
+
+  test('getLength function should return the correct number of elements', () => {
+    const linkedList = LinkedList();
+
+    linkedList.add('Parrot');
+    linkedList.remove(0);
+    linkedList.add('Monty');
+    linkedList.add('Python\'s');
+    linkedList.add('Flying');
+    linkedList.add('Spanish Inquisition');
+    linkedList.remove(3);
+    linkedList.add('Circus');
+
+    expect(linkedList.getLength()).toBe(4);
+  });
+
+  test('getLength function should return 0 after calling destroy', () => {
+    const linkedList = LinkedList();
+
+    linkedList.add('Monty');
+    linkedList.add('Python');
+
+    expect(linkedList.getLength()).toBe(2);
+
+    linkedList.destroy();
+
+    expect(linkedList.getLength()).toBe(0);
+  });
+
   test('destroy function should empty the LinkedList', () => {
     const linkedList = LinkedList();
 
