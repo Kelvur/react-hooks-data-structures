@@ -153,6 +153,40 @@ describe('Queue', () => {
     }
   });
 
+  test('getLength function should return 0 when the Queue is empty', () => {
+    const queue = Queue();
+
+    expect(queue.getLength()).toBe(0);
+  });
+
+  test('getLength function should return the correct number of elements', () => {
+    const queue = Queue();
+
+    queue.enqueue('Parrot');
+    queue.dequeue();
+    queue.enqueue('Monty');
+    queue.enqueue('Python\'s');
+    queue.enqueue('Flying');
+    queue.enqueue('Spanish Inquisition');
+    queue.dequeue();
+    queue.enqueue('Circus');
+
+    expect(queue.getLength()).toBe(4);
+  });
+
+  test('getLength function should return 0 after calling destroy', () => {
+    const queue = Queue();
+
+    queue.enqueue('Monty');
+    queue.enqueue('Python');
+
+    expect(queue.getLength()).toBe(2);
+
+    queue.destroy();
+
+    expect(queue.getLength()).toBe(0);
+  });
+
   test('destroy function should empty the Queue', () => {
     const queue = Queue();
 
