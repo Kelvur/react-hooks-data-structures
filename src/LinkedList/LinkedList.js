@@ -25,6 +25,8 @@ function validateIndexAndHead(index, head){
 
 function LinkedList(){
   let head = undefined;
+  let length = 0;
+
   const sideEffect = {
     current: () => {},
   };
@@ -42,6 +44,7 @@ function LinkedList(){
       }
       current.setNext(newNode);
     }
+    length++;
     return index;
   }
 
@@ -91,6 +94,7 @@ function LinkedList(){
     if(index === 0){
       const value = head.getValue();
       head = head.getNext();
+      length--;
       return value;
     }
     let current = head.getNext();
@@ -110,7 +114,12 @@ function LinkedList(){
     const value = current.getValue();
     previous.setNext(current.getNext());
     current.destroy();
+    length--;
     return value;
+  }
+
+  function getLength(){
+    return length;
   }
 
   function destroy(){
@@ -120,6 +129,7 @@ function LinkedList(){
       current.destroy();
       current = next;
     }
+    length = 0;
     head = undefined;
   }
 
@@ -152,6 +162,7 @@ function LinkedList(){
     get,
     set: _runSideEffectAfter(set),
     remove: _runSideEffectAfter(remove),
+    getLength,
     destroy: _runSideEffectAfter(destroy),
     getValues,
     [Symbol.iterator]: getValues,
