@@ -15,6 +15,7 @@ function Queue(){
     set: linkedList.set,
     remove,
     dequeue: remove, // Alias
+    getLength: linkedList.getLength,
     destroy: linkedList.destroy,
     getValues: linkedList.getValues,
     [Symbol.iterator]: linkedList.getValues,
