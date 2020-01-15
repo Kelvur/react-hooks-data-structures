@@ -1,36 +1,32 @@
 
-function LinkedListNode(newValue){
-  let next = undefined;
-  let value = newValue;
+const DEFAULT_NEXT = undefined;
 
-  function setValue(newValue){
-    value = newValue;
+export default class LinkedListNode {
+
+  constructor(newValue){
+    this.next = DEFAULT_NEXT;
+    this.value = newValue;
   }
 
-  function getValue(){
-    return value;
+  setValue(newValue){
+    this.value = newValue;
   }
 
-  function setNext(reference){
-    next = reference;
+  getValue(){
+    return this.value;
   }
 
-  function getNext(){
-    return next;
+  setNext(newNext){
+    this.next = newNext;
   }
 
-  function destroy(){
-    next = undefined;
-    value = undefined;
+  getNext(){
+    return this.next;
   }
 
-  return {
-    setValue,
-    getValue,
-    setNext,
-    getNext,
-    destroy,
-  };
+  destroy(){
+    this.next = DEFAULT_NEXT;
+    this.value = undefined;
+  }
+
 }
-
-export default LinkedListNode;
