@@ -1,174 +1,158 @@
-// Data Structures
+// Core
 import LinkedListNode from './LinkedListNode';
 
 
-function generateIndexLessThatZeroError(){
-  return new RangeError('The argument Index cannot be less than zero');
-}
+const DEFAULT_HEAD = undefined;
 
-function generateOutOfRangeError(){
-  return new RangeError('The argument Index is out of range');
-}
+export default class LinkedList {
 
-function validateIndex(index){
-  if(index < 0) throw generateIndexLessThatZeroError();
-}
+  constructor(){
+    this.head = DEFAULT_HEAD;
+    this.length = 0;
+    this.sideEffect = {
+      current: () => {},
+    };
 
-function validateHead(head){
-  if(head === undefined) throw generateOutOfRangeError();
-}
+    this.set = this._runSideEffectAfter(this.set);
+    this.add = this._runSideEffectAfter(this.add);
+    this.remove = this._runSideEffectAfter(this.remove);
+    this.destroy = this._runSideEffectAfter(this.destroy);
+  }
 
-function validateIndexAndHead(index, head){
-  validateIndex(index);
-  validateHead(head);
-}
-
-function LinkedList(){
-  let head = undefined;
-  let length = 0;
-
-  const sideEffect = {
-    current: () => {},
-  };
-
-  function add(newValue){
-    const newNode = LinkedListNode(newValue);
-    let index = 0;
-    if(head === undefined){
-      head = newNode;
+  add(newValue){
+    const newNode = new LinkedListNode(newValue);
+    if(this._isDefaultHead()){
+      this.head = newNode;
     } else {
-      let current = head;
-      while(current.getNext() !== undefined){
-        index++;
-        current = current.getNext();
-      }
-      current.setNext(newNode);
+      const last = this._getNode(this.length - 1);
+      last.setNext(newNode);
     }
-    length++;
-    return index;
+    this.length++;
+    return this.length - 1;
   }
 
-  function get(index){
-    validateIndexAndHead(index, head);
-
-    let current = head;
-    let i = 0;
-    while(current.getNext()){
-      if(i === index){
-        break;
-      }
-      i++;
-      current = current.getNext();
-    }
-    if(i !== index){
-      throw generateOutOfRangeError();
-    }
-    return current.getValue();
+  get(index){
+    return this._getNode(index).getValue();
   }
 
-  function set(index, value){
-    validateIndexAndHead(index, head);
-
-    let current = head;
-    let i = 0;
-    while(current.getNext()){
-      if(i === index){
-        break;
-      }
-      i++;
-      current = current.getNext();
-    }
-    if(i !== index){
-      throw generateOutOfRangeError();
-    }
-
-    const previousValue = current.getValue();
-    current.setValue(value);
+  set(index, newValue){
+    const node = this._getNode(index);
+    const previousValue = node.getValue();
+    node.setValue(newValue);
     return previousValue;
   }
 
-  function remove(index){
-    validateIndexAndHead(index, head);
+  remove(index){
+    this._validateIndexAndHead(index);
 
-    // Case: remove index 0
-    if(index === 0){
-      const value = head.getValue();
-      head = head.getNext();
-      length--;
-      return value;
-    }
-    let current = head.getNext();
-    let previous = head;
-    let i = 1;
-    while(current.getNext()){
-      if(i === index){
-        break;
-      }
-      i++;
-      previous = current;
+    let value = this.head.getValue();
+    let current = this.head;
+    if(index === 0){ // Case: remove index 0
+      this.head = current.getNext();
+    } else {
       current = current.getNext();
+      let previous = this.head;
+      let i = 1;
+      while(current.getNext()){
+        if(i === index){
+          break;
+        }
+        i++;
+        previous = current;
+        current = current.getNext();
+      }
+      value = current.getValue();
+      previous.setNext(current.getNext());
     }
-    if(i !== index){
-      throw generateOutOfRangeError();
-    }
-    const value = current.getValue();
-    previous.setNext(current.getNext());
+
     current.destroy();
-    length--;
+    this.length--;
     return value;
   }
 
-  function getLength(){
-    return length;
+  getLength(){
+    return this.length;
   }
 
-  function destroy(){
-    let current = head;
-    while(current !== undefined){
+  destroy(){
+    let current = this.head;
+    while(current !== DEFAULT_HEAD){
       const next = current.getNext();
       current.destroy();
       current = next;
     }
-    length = 0;
-    head = undefined;
+    this.head = DEFAULT_HEAD;
+    this.length = 0;
   }
 
-  function *getValues(){
-    let current = head;
+  *getValues(){
+    let current = this.head;
     while(current !== undefined){
       yield current.getValue();
       current = current.getNext();
     }
   }
 
-  function map(callback){
-    return [...getValues()].map(callback);
+  [Symbol.iterator](){
+    return this.getValues();
   }
 
-  function setSideEffect(newSideEffect){
-    sideEffect.current = newSideEffect;
+  map(callback){
+    return [...this.getValues()].map(callback);
   }
 
-  function _runSideEffectAfter(func){
-    return (function(sideEffect, ...arg){
-      const value = func(...arg);
-      sideEffect.current();
+  setSideEffect(newSideEffect){
+    this.sideEffect.current = newSideEffect;
+  }
+
+  _isDefaultHead() {
+    return this.head === DEFAULT_HEAD;
+  }
+
+  _getNode(index){
+    this._validateIndexAndHead(index);
+
+    let current = this.head;
+    let i = 0;
+    while(current.getNext()){
+      if(i === index){
+        break;
+      }
+      i++;
+      current = current.getNext();
+    }
+    return current;
+  }
+
+  _generateOutOfRangeError(){
+    return new RangeError('The argument Index is out of range');
+  }
+
+  _generateIndexLessThatZeroError(){
+    return new RangeError('The argument Index cannot be less than zero');
+  }
+
+  _validateIndexAndHead(index){
+    this._validateIndex(index);
+    this._validateHead();
+  }
+
+  _validateIndex(index){
+    if(index < 0) throw this._generateIndexLessThatZeroError();
+    if(index > (this.length - 1)) throw this._generateOutOfRangeError();
+  }
+
+  _validateHead(){
+    if(this.head === undefined) throw this._generateOutOfRangeError();
+  }
+
+  _runSideEffectAfter(func){
+    const bindedFunction = func.bind(this);
+    return (...arg) => {
+      const value = bindedFunction(...arg);
+      this.sideEffect.current();
       return value;
-    }).bind(null, sideEffect);
+    };
   }
 
-  return {
-    add: _runSideEffectAfter(add),
-    get,
-    set: _runSideEffectAfter(set),
-    remove: _runSideEffectAfter(remove),
-    getLength,
-    destroy: _runSideEffectAfter(destroy),
-    getValues,
-    [Symbol.iterator]: getValues,
-    map,
-    setSideEffect,
-  };
 }
-
-export default LinkedList;

@@ -4,13 +4,13 @@ import LinkedList from './LinkedList';
 
 describe('LinkedList', () => {
   it('initialize without errors', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
     expect(linkedList).not.toBe(undefined);
   });
 
   test('add function should return the index of the value', () => {
     const newValue = 'John Cleese';
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
 
     const index = linkedList.add(newValue);
 
@@ -18,7 +18,7 @@ describe('LinkedList', () => {
   });
 
   test('get function should return the same reference of the added value', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
     const objectReference = {monty: 'Python'};
 
     linkedList.add(objectReference);
@@ -31,7 +31,7 @@ describe('LinkedList', () => {
     const john = 'John Cleese';
     const graham = 'Graham Chapman';
     const terry = 'Terry Gilliam';
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
 
     linkedList.add(john);
     linkedList.add(graham);
@@ -43,31 +43,23 @@ describe('LinkedList', () => {
   });
 
   test('get function should throws a RangeError exception when index < 0', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
 
-    try{
-      linkedList.get(-45);
-    } catch(error) {
-      expect(error instanceof RangeError).toBe(true);
-    }
+    expect(() => linkedList.get(-45)).toThrow(RangeError);
   });
 
   test('get function should throws a RangeError exception when index is out of range', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
 
     linkedList.add('x');
     linkedList.add('y');
     linkedList.add('z');
 
-    try{
-      linkedList.get(86);
-    } catch(error) {
-      expect(error instanceof RangeError).toBe(true);
-    }
+    expect(() => linkedList.get(86)).toThrow(RangeError);
   });
 
   test('set function should set the correct value in the indicated index', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
     const value = 'Coconut';
     linkedList.add('x');
     linkedList.add('y');
@@ -81,7 +73,7 @@ describe('LinkedList', () => {
   });
 
   test('set function should return the previous value', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
     const john = 'John Cleese';
     const graham = 'Graham Chapman';
     const terry = 'Terry Gilliam';
@@ -95,28 +87,20 @@ describe('LinkedList', () => {
   });
 
   test('set function should throw a RangeError exception when the index < zero', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
 
-    try {
-      linkedList.set(-6, 'Horse');
-    }catch(error){
-      expect(error instanceof RangeError).toBe(true);
-    }
+    expect(() => linkedList.set(-6, 'Horse')).toThrow(RangeError);
   });
 
   test('set function should throw a RangeError exception when the index is out of range', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
     linkedList.add('x');
 
-    try {
-      linkedList.set(38, 'Horse');
-    }catch(error){
-      expect(error instanceof RangeError).toBe(true);
-    }
+    expect(() => linkedList.set(38, 'Horse')).toThrow(RangeError);
   });
 
   test('remove function should return the same reference of the added value', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
     const objectReference = {monty: 'Python'};
 
     linkedList.add(objectReference);
@@ -126,7 +110,7 @@ describe('LinkedList', () => {
   });
 
   test('remove function should return the same reference of the added values', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
     const objectReferenceA = {monty: 'Python'};
     const objectReferenceB = {holy: 'Grail'};
     const objectReferenceC = {meaning: 'Life'};
@@ -143,38 +127,59 @@ describe('LinkedList', () => {
     expect(referenceC).toBe(objectReferenceC);
   });
 
-  test('remove function should throws a RangeError exception when index < 0', () => {
-    const linkedList = LinkedList();
-
-    try{
-      linkedList.remove(-45);
-    } catch(error) {
-      expect(error instanceof RangeError).toBe(true);
-    }
-  });
-
-  test('remove function should throws a RangeError exception when index is out of range', () => {
-    const linkedList = LinkedList();
+  test('remove function should call destroy in the node removed', () => {
+    const linkedList = new LinkedList();
 
     linkedList.add('x');
     linkedList.add('y');
     linkedList.add('z');
 
-    try{
-      linkedList.remove(32);
-    } catch(error) {
-      expect(error instanceof RangeError).toBe(true);
-    }
+    const nodeY = linkedList._getNode(1);
+
+    linkedList.remove(1);
+
+    expect(nodeY.getNext()).toBe(undefined);
+    expect(nodeY.getValue()).toBe(undefined);
+  });
+
+  test('remove function should call destroy when removing the head', () => {
+    const linkedList = new LinkedList();
+
+    linkedList.add('x');
+    linkedList.add('y');
+
+    const nodeX = linkedList._getNode(0);
+
+    linkedList.remove(0);
+
+    expect(nodeX.getNext()).toBe(undefined);
+    expect(nodeX.getValue()).toBe(undefined);
+  });
+
+  test('remove function should throws a RangeError exception when index < 0', () => {
+    const linkedList = new LinkedList();
+
+    expect(() => linkedList.remove(-45)).toThrow(RangeError);
+  });
+
+  test('remove function should throws a RangeError exception when index is out of range', () => {
+    const linkedList = new LinkedList();
+
+    linkedList.add('x');
+    linkedList.add('y');
+    linkedList.add('z');
+
+    expect(() => linkedList.remove(32)).toThrow(RangeError);
   });
 
   test('getLength function should return 0 when the LinkedList is empty', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
 
     expect(linkedList.getLength()).toBe(0);
   });
 
   test('getLength function should return the correct number of elements', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
 
     linkedList.add('Parrot');
     linkedList.remove(0);
@@ -189,7 +194,7 @@ describe('LinkedList', () => {
   });
 
   test('getLength function should return 0 after calling destroy', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
 
     linkedList.add('Monty');
     linkedList.add('Python');
@@ -202,7 +207,7 @@ describe('LinkedList', () => {
   });
 
   test('destroy function should empty the LinkedList', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
 
     linkedList.add('x');
     linkedList.add('y');
@@ -217,7 +222,7 @@ describe('LinkedList', () => {
   });
 
   test('getValues function return all the values', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
 
     linkedList.add('x');
     linkedList.add('y');
@@ -229,8 +234,8 @@ describe('LinkedList', () => {
     expect(generator.next().value).toBe('z');
   });
 
-  it('\'s a iterator', () => {
-    const linkedList = LinkedList();
+  it('is a iterator', () => {
+    const linkedList = new LinkedList();
 
     linkedList.add('x');
     linkedList.add('y');
@@ -240,7 +245,7 @@ describe('LinkedList', () => {
   });
 
   it('has the function map', () => {
-    const linkedList = LinkedList();
+    const linkedList = new LinkedList();
 
     linkedList.add('x');
     linkedList.add('y');
@@ -250,48 +255,45 @@ describe('LinkedList', () => {
   });
 
   it('execute sideEffect after add', () => {
-    const linkedList = LinkedList();
-    const sideEffect = () => {
-      expect(true).toBe(true);
-    };
+    const linkedList = new LinkedList();
+    const sideEffect = jest.fn();
 
     linkedList.setSideEffect(sideEffect);
-
     linkedList.add('x');
+
+    expect(sideEffect).toHaveBeenCalled();
   });
 
   it('execute sideEffect after set', () => {
-    const linkedList = LinkedList();
-    const sideEffect = () => {
-      expect(true).toBe(true);
-    };
+    const linkedList = new LinkedList();
+    const sideEffect = jest.fn();
     linkedList.add('x');
-    linkedList.setSideEffect(sideEffect);
 
+    linkedList.setSideEffect(sideEffect);
     linkedList.set(0, 'y');
+
+    expect(sideEffect).toHaveBeenCalled();
   });
 
   it('execute sideEffect after remove', () => {
-    const linkedList = LinkedList();
-    const sideEffect = () => {
-      expect(true).toBe(true);
-    };
+    const linkedList = new LinkedList();
+    const sideEffect = jest.fn();
+
     linkedList.add('y');
-
     linkedList.setSideEffect(sideEffect);
-
     linkedList.remove(0);
+
+    expect(sideEffect).toHaveBeenCalled();
   });
 
   it('execute sideEffect after destroy', () => {
-    const linkedList = LinkedList();
-    const sideEffect = () => {
-      expect(true).toBe(true);
-    };
+    const linkedList = new LinkedList();
+    const sideEffect = jest.fn();
 
     linkedList.setSideEffect(sideEffect);
-
     linkedList.destroy();
+
+    expect(sideEffect).toHaveBeenCalled();
   });
 
 });
