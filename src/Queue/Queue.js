@@ -1,27 +1,18 @@
 import LinkedList from '../LinkedList';
 
 
-function Queue(){
-  const linkedList = LinkedList();
+export default class Queue extends LinkedList{
 
-  function remove(){
-    return linkedList.remove(0);
+  enqueue(newValue){
+    return super.add(newValue);
   }
 
-  return {
-    add: linkedList.add,
-    enqueue: linkedList.add, // Alias
-    get: linkedList.get,
-    set: linkedList.set,
-    remove,
-    dequeue: remove, // Alias
-    getLength: linkedList.getLength,
-    destroy: linkedList.destroy,
-    getValues: linkedList.getValues,
-    [Symbol.iterator]: linkedList.getValues,
-    map: linkedList.map,
-    setSideEffect: linkedList.setSideEffect,
-  };
-}
+  dequeue(){
+    return this.remove();
+  }
 
-export default Queue;
+  remove(){
+    return super.remove(0);
+  }
+
+}
