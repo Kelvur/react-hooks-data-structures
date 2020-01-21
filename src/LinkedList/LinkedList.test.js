@@ -214,11 +214,7 @@ describe('LinkedList', () => {
     linkedList.add('z');
     linkedList.destroy();
 
-    try{
-      linkedList.get(0);
-    } catch(error) {
-      expect(error instanceof RangeError).toBe(true);
-    }
+    expect(() => linkedList.get(0)).toThrow(RangeError);
   });
 
   test('getValues function return all the values', () => {
@@ -262,6 +258,7 @@ describe('LinkedList', () => {
     linkedList.add('x');
 
     expect(sideEffect).toHaveBeenCalled();
+    expect(sideEffect.mock.calls.length).toBe(1);
   });
 
   it('execute sideEffect after set', () => {
@@ -273,17 +270,19 @@ describe('LinkedList', () => {
     linkedList.set(0, 'y');
 
     expect(sideEffect).toHaveBeenCalled();
+    expect(sideEffect.mock.calls.length).toBe(1);
   });
 
   it('execute sideEffect after remove', () => {
     const linkedList = new LinkedList();
     const sideEffect = jest.fn();
-
     linkedList.add('y');
+
     linkedList.setSideEffect(sideEffect);
     linkedList.remove(0);
 
     expect(sideEffect).toHaveBeenCalled();
+    expect(sideEffect.mock.calls.length).toBe(1);
   });
 
   it('execute sideEffect after destroy', () => {
@@ -294,6 +293,7 @@ describe('LinkedList', () => {
     linkedList.destroy();
 
     expect(sideEffect).toHaveBeenCalled();
+    expect(sideEffect.mock.calls.length).toBe(1);
   });
 
 });
