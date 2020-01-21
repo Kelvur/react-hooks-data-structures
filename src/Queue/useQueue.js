@@ -5,7 +5,7 @@ import Queue from './Queue';
 
 
 const useQueue = () => {
-  const [ queue, setQueue ] = useState(() => Queue());
+  const [ queue, setQueue ] = useState(() => new Queue());
   queue.setSideEffect(() => setQueue(queue));
   return queue;
 };
