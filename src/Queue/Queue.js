@@ -4,7 +4,7 @@ import LinkedList from '../LinkedList';
 export default class Queue extends LinkedList{
 
   enqueue(newValue){
-    return super.add(newValue);
+    return this.add(newValue);
   }
 
   dequeue(){
