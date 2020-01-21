@@ -184,11 +184,7 @@ describe('useQueue', () => {
 
       if(counter.current === 2){
         // Assert
-        try{
-          queue.get(0);
-        } catch(error){
-          expect(error instanceof RangeError).toBe(true);
-        }
+        expect(() => queue.get(0)).toThrow(RangeError);
       }
 
       counter.current++;
