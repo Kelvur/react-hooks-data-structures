@@ -13,6 +13,9 @@ export default class LinkedList {
       current: () => {},
     };
 
+    // The classes who extends this class and override
+    // the functions listed below will pass they own
+    // implementation to this._runSideEffectAfter
     this.set = this._runSideEffectAfter(this.set);
     this.add = this._runSideEffectAfter(this.add);
     this.remove = this._runSideEffectAfter(this.remove);
