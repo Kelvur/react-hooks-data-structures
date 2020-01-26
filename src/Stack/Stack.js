@@ -1,27 +1,19 @@
 import LinkedList from '../LinkedList';
 
 
-function Stack(){
-  const linkedList = LinkedList();
+export default class Stack extends LinkedList{
 
-  function remove(){
-    return linkedList.remove(linkedList.getLength() - 1);
+  push(newValue){
+    return this.add(newValue);
   }
 
-  return {
-    add: linkedList.add,
-    push: linkedList.add, // Alias
-    get: linkedList.get,
-    set: linkedList.set,
-    remove,
-    pop: remove, // Alias
-    getLength: linkedList.getLength,
-    destroy: linkedList.destroy,
-    getValues: linkedList.getValues,
-    [Symbol.iterator]: linkedList.getValues,
-    map: linkedList.map,
-    setSideEffect: linkedList.setSideEffect,
-  };
+  pop(){
+    return this.remove();
+  }
+
+  remove(){
+    return super.remove(this.getLength() - 1);
+  }
+
 }
 
-export default Stack;
