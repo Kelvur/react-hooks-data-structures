@@ -4,13 +4,13 @@ import Stack from './Stack';
 
 describe('Stack', () => {
   it('initialize without errors', () => {
-    const stack = Stack();
+    const stack = new Stack();
     expect(stack).not.toBe(undefined);
   });
 
   test('push function should return the index of the value', () => {
     const newValue = 'John Cleese';
-    const stack = Stack();
+    const stack = new Stack();
 
     const index = stack.push(newValue);
 
@@ -18,7 +18,7 @@ describe('Stack', () => {
   });
 
   test('get function should return the same reference of the pushed value', () => {
-    const stack = Stack();
+    const stack = new Stack();
     const objectReference = {monty: 'Python'};
 
     stack.push(objectReference);
@@ -27,16 +27,21 @@ describe('Stack', () => {
     expect(reference).toBe(objectReference);
   });
 
-  test('push function should be an alias of the add function', () => {
-    const stack = Stack();
-    expect(stack.add).toBe(stack.push);
+  test('push function should do the same of the add function', () => {
+    const stackOne = new Stack();
+    const stackTwo = new Stack();
+
+    stackOne.push('Monty');
+    stackTwo.add('Python');
+
+    expect(stackOne.getLength()).toBe(stackTwo.getLength());
   });
 
   test('get function should return the same reference of the pushed values', () => {
     const john = 'John Cleese';
     const graham = 'Graham Chapman';
     const terry = 'Terry Gilliam';
-    const stack = Stack();
+    const stack = new Stack();
 
     stack.push(john);
     stack.push(graham);
@@ -48,21 +53,17 @@ describe('Stack', () => {
   });
 
   test('get function should throws a RangeError exception when index is out of range', () => {
-    const stack = Stack();
+    const stack = new Stack();
 
     stack.push('x');
     stack.push('y');
     stack.push('z');
 
-    try{
-      stack.get(86);
-    } catch(error) {
-      expect(error instanceof RangeError).toBe(true);
-    }
+    expect(() => stack.get(86)).toThrow(RangeError);
   });
 
   test('set function should set the correct value in the indicated index', () => {
-    const stack = Stack();
+    const stack = new Stack();
     const value = 'Coconut';
     stack.push('x');
     stack.push('y');
@@ -76,7 +77,7 @@ describe('Stack', () => {
   });
 
   test('set function should return the previous value', () => {
-    const stack = Stack();
+    const stack = new Stack();
     const john = 'John Cleese';
     const graham = 'Graham Chapman';
     const terry = 'Terry Gilliam';
@@ -90,33 +91,34 @@ describe('Stack', () => {
   });
 
   test('set function should throw a RangeError exception when the index < zero', () => {
-    const stack = Stack();
+    const stack = new Stack();
 
-    try {
-      stack.set(-6, 'Horse');
-    }catch(error){
-      expect(error instanceof RangeError).toBe(true);
-    }
+    expect(() => stack.set(-6, 'Horse')).toThrow(RangeError);
   });
 
   test('set function should throw a RangeError exception when the index is out of range', () => {
-    const stack = Stack();
+    const stack = new Stack();
     stack.push('x');
 
-    try {
-      stack.set(38, 'Horse');
-    }catch(error){
-      expect(error instanceof RangeError).toBe(true);
-    }
+    expect(() => stack.set(38, 'Horse')).toThrow(RangeError);
   });
 
-  test('pop function should be an alias of the remove function', () => {
-    const stack = Stack();
-    expect(stack.remove).toBe(stack.pop);
+  test('pop function should do the same of the remove function', () => {
+    const stackOne = new Stack();
+    const stackTwo = new Stack();
+    stackOne.push('x');
+    stackOne.push('y');
+    stackTwo.push('A');
+    stackTwo.push('B');
+
+    stackOne.pop();
+    stackTwo.remove();
+
+    expect(stackOne.getLength()).toBe(stackTwo.getLength());
   });
 
-  test('po function should return the same reference of the pushed value', () => {
-    const stack = Stack();
+  test('pop function should return the same reference of the pushed value', () => {
+    const stack = new Stack();
     const objectReference = {monty: 'Python'};
 
     stack.push(objectReference);
@@ -126,7 +128,7 @@ describe('Stack', () => {
   });
 
   test('pop function should return the same reference of the pushed values', () => {
-    const stack = Stack();
+    const stack = new Stack();
     const objectReferenceA = {monty: 'Python'};
     const objectReferenceB = {holy: 'Grail'};
     const objectReferenceC = {meaning: 'Life'};
@@ -144,23 +146,19 @@ describe('Stack', () => {
   });
 
   test('pop function should throws a RangeError exception when index is out of range', () => {
-    const stack = Stack();
+    const stack = new Stack();
 
-    try{
-      stack.pop();
-    } catch(error) {
-      expect(error instanceof RangeError).toBe(true);
-    }
+    expect(() => stack.pop()).toThrow(RangeError);
   });
 
   test('getLength function should return 0 when the Stack is empty', () => {
-    const stack = Stack();
+    const stack = new Stack();
 
     expect(stack.getLength()).toBe(0);
   });
 
   test('getLength function should return the correct number of elements', () => {
-    const stack = Stack();
+    const stack = new Stack();
 
     stack.push('Parrot');
     stack.pop();
@@ -175,7 +173,7 @@ describe('Stack', () => {
   });
 
   test('getLength function should return 0 after calling destroy', () => {
-    const stack = Stack();
+    const stack = new Stack();
 
     stack.push('Monty');
     stack.push('Python');
@@ -188,22 +186,18 @@ describe('Stack', () => {
   });
 
   test('destroy function should empty the Stack', () => {
-    const stack = Stack();
+    const stack = new Stack();
 
     stack.push('x');
     stack.push('y');
     stack.push('z');
     stack.destroy();
 
-    try{
-      stack.get(0);
-    } catch(error) {
-      expect(error instanceof RangeError).toBe(true);
-    }
+    expect(() => stack.get(0)).toThrow(RangeError);
   });
 
   test('getValues function return all the values', () => {
-    const stack = Stack();
+    const stack = new Stack();
 
     stack.push('x');
     stack.push('y');
@@ -215,8 +209,8 @@ describe('Stack', () => {
     expect(generator.next().value).toBe('z');
   });
 
-  it('\'s a iterator', () => {
-    const stack = Stack();
+  it('is a iterator', () => {
+    const stack = new Stack();
 
     stack.push('x');
     stack.push('y');
@@ -226,7 +220,7 @@ describe('Stack', () => {
   });
 
   it('has the function map', () => {
-    const stack = Stack();
+    const stack = new Stack();
 
     stack.push('x');
     stack.push('y');
@@ -236,48 +230,45 @@ describe('Stack', () => {
   });
 
   it('execute sideEffect after push', () => {
-    const stack = Stack();
-    const sideEffect = () => {
-      expect(true).toBe(true);
-    };
+    const stack = new Stack();
+    const sideEffect = jest.fn();
 
     stack.setSideEffect(sideEffect);
-
     stack.push('x');
+
+    expect(sideEffect).toHaveBeenCalledTimes(1);
   });
 
   it('execute sideEffect after set', () => {
-    const stack = Stack();
-    const sideEffect = () => {
-      expect(true).toBe(true);
-    };
+    const stack = new Stack();
+    const sideEffect = jest.fn();
     stack.push('x');
     stack.setSideEffect(sideEffect);
 
     stack.set(0, 'y');
+
+    expect(sideEffect).toHaveBeenCalledTimes(1);
   });
 
   it('execute sideEffect after pop', () => {
-    const stack = Stack();
-    const sideEffect = () => {
-      expect(true).toBe(true);
-    };
+    const stack = new Stack();
+    const sideEffect = jest.fn();
     stack.push('y');
 
     stack.setSideEffect(sideEffect);
-
     stack.pop();
+
+    expect(sideEffect).toHaveBeenCalledTimes(1);
   });
 
   it('execute sideEffect after destroy', () => {
-    const stack = Stack();
-    const sideEffect = () => {
-      expect(true).toBe(true);
-    };
+    const stack = new Stack();
+    const sideEffect = jest.fn();
 
     stack.setSideEffect(sideEffect);
-
     stack.destroy();
+
+    expect(sideEffect).toHaveBeenCalledTimes(1);
   });
 
 });
