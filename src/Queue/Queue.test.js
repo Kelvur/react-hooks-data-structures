@@ -255,8 +255,7 @@ describe('Queue', () => {
     queue.setSideEffect(sideEffect);
     queue.enqueue('x');
 
-    expect(sideEffect).toHaveBeenCalled();
-    expect(sideEffect.mock.calls.length).toBe(1);
+    expect(sideEffect).toHaveBeenCalledTimes(1);
   });
 
   it('execute sideEffect after set', () => {
@@ -267,8 +266,7 @@ describe('Queue', () => {
     queue.setSideEffect(sideEffect);
     queue.set(0, 'y');
 
-    expect(sideEffect).toHaveBeenCalled();
-    expect(sideEffect.mock.calls.length).toBe(1);
+    expect(sideEffect).toHaveBeenCalledTimes(1);
   });
 
   it('execute sideEffect after dequeue', () => {
@@ -279,8 +277,7 @@ describe('Queue', () => {
     queue.setSideEffect(sideEffect);
     queue.dequeue();
 
-    expect(sideEffect).toHaveBeenCalled();
-    expect(sideEffect.mock.calls.length).toBe(1);
+    expect(sideEffect).toHaveBeenCalledTimes(1);
   });
 
   it('execute sideEffect after destroy', () => {
@@ -290,8 +287,7 @@ describe('Queue', () => {
     queue.setSideEffect(sideEffect);
     queue.destroy();
 
-    expect(sideEffect).toHaveBeenCalled();
-    expect(sideEffect.mock.calls.length).toBe(1);
+    expect(sideEffect).toHaveBeenCalledTimes(1);
   });
 
 });
