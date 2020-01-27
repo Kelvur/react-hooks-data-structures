@@ -184,11 +184,7 @@ describe('useLinkedList', () => {
 
       if(counter.current === 2){
         // Assert
-        try{
-          linkedList.get(0);
-        } catch(error){
-          expect(error instanceof RangeError).toBe(true);
-        }
+        expect(() => linkedList.get(0)).toThrow(RangeError);
       }
 
       counter.current++;
