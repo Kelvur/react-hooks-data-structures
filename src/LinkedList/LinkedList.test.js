@@ -257,8 +257,7 @@ describe('LinkedList', () => {
     linkedList.setSideEffect(sideEffect);
     linkedList.add('x');
 
-    expect(sideEffect).toHaveBeenCalled();
-    expect(sideEffect.mock.calls.length).toBe(1);
+    expect(sideEffect).toHaveBeenCalledTimes(1);
   });
 
   it('execute sideEffect after set', () => {
@@ -269,8 +268,7 @@ describe('LinkedList', () => {
     linkedList.setSideEffect(sideEffect);
     linkedList.set(0, 'y');
 
-    expect(sideEffect).toHaveBeenCalled();
-    expect(sideEffect.mock.calls.length).toBe(1);
+    expect(sideEffect).toHaveBeenCalledTimes(1);
   });
 
   it('execute sideEffect after remove', () => {
@@ -281,8 +279,7 @@ describe('LinkedList', () => {
     linkedList.setSideEffect(sideEffect);
     linkedList.remove(0);
 
-    expect(sideEffect).toHaveBeenCalled();
-    expect(sideEffect.mock.calls.length).toBe(1);
+    expect(sideEffect).toHaveBeenCalledTimes(1);
   });
 
   it('execute sideEffect after destroy', () => {
@@ -292,8 +289,7 @@ describe('LinkedList', () => {
     linkedList.setSideEffect(sideEffect);
     linkedList.destroy();
 
-    expect(sideEffect).toHaveBeenCalled();
-    expect(sideEffect.mock.calls.length).toBe(1);
+    expect(sideEffect).toHaveBeenCalledTimes(1);
   });
 
 });
