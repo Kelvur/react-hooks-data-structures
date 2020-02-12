@@ -46,7 +46,7 @@ export default class LinkedList {
   }
 
   remove(index){
-    this._validateIndexAndHead(index);
+    this._validateIndex(index);
 
     let value = this.head.getValue();
     let current = this.head;
@@ -113,7 +113,7 @@ export default class LinkedList {
   }
 
   _getNode(index){
-    this._validateIndexAndHead(index);
+    this._validateIndex(index);
 
     let current = this.head;
     let i = 0;
@@ -135,18 +135,9 @@ export default class LinkedList {
     return new RangeError('The argument Index cannot be less than zero');
   }
 
-  _validateIndexAndHead(index){
-    this._validateIndex(index);
-    this._validateHead();
-  }
-
   _validateIndex(index){
     if(index < 0) throw this._generateIndexLessThatZeroError();
     if(index > (this.length - 1)) throw this._generateOutOfRangeError();
-  }
-
-  _validateHead(){
-    if(this.head === undefined) throw this._generateOutOfRangeError();
   }
 
   _runSideEffectAfter(func){
