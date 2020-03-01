@@ -68,6 +68,18 @@ describe('Queue', () => {
     expect(() => queue.get(86)).toThrow(RangeError);
   });
 
+  test('get function should throws a TypeError when passed a index which type is not integer', () => {
+    const queue = new Queue();
+
+    queue.add('x');
+
+    expect(() => queue.get(null)).toThrow(TypeError);
+    expect(() => queue.get()).toThrow(TypeError);
+    expect(() => queue.get('1')).toThrow(TypeError);
+    expect(() => queue.get(6.4)).toThrow(TypeError);
+    expect(() => queue.get(true)).toThrow(TypeError);
+  });
+
   test('set function should set the correct value in the indicated index', () => {
     const queue = new Queue();
     const value = 'Coconut';
@@ -107,6 +119,18 @@ describe('Queue', () => {
     queue.enqueue('x');
 
     expect(() => queue.set(38, 'Horse')).toThrow(RangeError);
+  });
+
+  test('set function should throws a TypeError when passed a index which type is not integer', () => {
+    const queue = new Queue();
+
+    queue.add('x');
+
+    expect(() => queue.set(null)).toThrow(TypeError);
+    expect(() => queue.set()).toThrow(TypeError);
+    expect(() => queue.set('1')).toThrow(TypeError);
+    expect(() => queue.set(6.4)).toThrow(TypeError);
+    expect(() => queue.set(true)).toThrow(TypeError);
   });
 
   test('dequeue function should be an alias of the remove function', () => {
