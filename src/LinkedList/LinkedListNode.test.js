@@ -3,7 +3,7 @@ import LinkedListNode from './LinkedListNode';
 
 
 describe('LinkedListNode', () => {
-  it('initialice without errors', () => {
+  it('initialize without errors', () => {
     const node = new LinkedListNode();
     expect(node).not.toBe(null);
   });
