@@ -45,7 +45,7 @@ describe('LinkedList', () => {
   test('get function should throws a RangeError exception when index < 0', () => {
     const linkedList = new LinkedList();
 
-    expect(() => linkedList.get(-45)).toThrow(RangeError);
+    expect(() => linkedList.get(1)).toThrow(RangeError);
   });
 
   test('get function should throws a RangeError exception when index is out of range', () => {

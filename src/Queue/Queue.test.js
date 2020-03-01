@@ -51,11 +51,13 @@ describe('Queue', () => {
     expect(queue.get(1)).toBe(graham);
     expect(queue.get(2)).toBe(terry);
   });
+
   test('get function should throws a RangeError exception when index < 0', () => {
     const queue = new Queue();
 
-    expect(() => queue.get(-45)).toThrow(RangeError);
+    expect(() => queue.get(1)).toThrow(RangeError);
   });
+
   test('get function should throws a RangeError exception when index is out of range', () => {
     const queue = new Queue();
 

@@ -137,7 +137,7 @@ export default class LinkedList {
 
   _validateIndex(index){
     if(index < 0) throw this._generateIndexLessThatZeroError();
-    if(index > (this.length - 1)) throw this._generateOutOfRangeError();
+    if(index >= this.length) throw this._generateOutOfRangeError();
   }
 
   _runSideEffectAfter(func){
