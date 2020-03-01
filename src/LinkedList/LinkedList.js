@@ -127,16 +127,21 @@ export default class LinkedList {
     return current;
   }
 
+  _generateIndexIsNotAIntegerError(index){
+    return new TypeError(`The argment index should be a interger, instead get a ${typeof index}`);
+  }
+
+  _generateIndexLessThanZeroError(){
+    return new RangeError('The argument Index cannot be less than zero');
+  }
+
   _generateOutOfRangeError(){
     return new RangeError('The argument Index is out of range');
   }
 
-  _generateIndexLessThatZeroError(){
-    return new RangeError('The argument Index cannot be less than zero');
-  }
-
   _validateIndex(index){
-    if(index < 0) throw this._generateIndexLessThatZeroError();
+    if(!Number.isInteger(index)) throw this._generateIndexIsNotAIntegerError(index);
+    if(index < 0) throw this._generateIndexLessThanZeroError();
     if(index >= this.length) throw this._generateOutOfRangeError();
   }
 
