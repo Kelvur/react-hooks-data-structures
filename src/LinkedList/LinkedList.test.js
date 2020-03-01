@@ -58,6 +58,18 @@ describe('LinkedList', () => {
     expect(() => linkedList.get(86)).toThrow(RangeError);
   });
 
+  test('get function should throws a TypeError when passed a index which type is not integer', () => {
+    const linkedList = new LinkedList();
+
+    linkedList.add('x');
+
+    expect(() => linkedList.get(null)).toThrow(TypeError);
+    expect(() => linkedList.get()).toThrow(TypeError);
+    expect(() => linkedList.get('1')).toThrow(TypeError);
+    expect(() => linkedList.get(6.4)).toThrow(TypeError);
+    expect(() => linkedList.get(true)).toThrow(TypeError);
+  });
+
   test('set function should set the correct value in the indicated index', () => {
     const linkedList = new LinkedList();
     const value = 'Coconut';
@@ -97,6 +109,18 @@ describe('LinkedList', () => {
     linkedList.add('x');
 
     expect(() => linkedList.set(38, 'Horse')).toThrow(RangeError);
+  });
+
+  test('set function should throws a TypeError when passed a index which type is not integer', () => {
+    const linkedList = new LinkedList();
+
+    linkedList.add('x');
+
+    expect(() => linkedList.set(null)).toThrow(TypeError);
+    expect(() => linkedList.set()).toThrow(TypeError);
+    expect(() => linkedList.set('1')).toThrow(TypeError);
+    expect(() => linkedList.set(6.4)).toThrow(TypeError);
+    expect(() => linkedList.set(true)).toThrow(TypeError);
   });
 
   test('remove function should return the same reference of the added value', () => {
@@ -170,6 +194,18 @@ describe('LinkedList', () => {
     linkedList.add('z');
 
     expect(() => linkedList.remove(32)).toThrow(RangeError);
+  });
+
+  test('remove function should throws a TypeError when passed a index which type is not integer', () => {
+    const linkedList = new LinkedList();
+
+    linkedList.add('x');
+
+    expect(() => linkedList.remove(null)).toThrow(TypeError);
+    expect(() => linkedList.remove()).toThrow(TypeError);
+    expect(() => linkedList.remove('1')).toThrow(TypeError);
+    expect(() => linkedList.remove(6.4)).toThrow(TypeError);
+    expect(() => linkedList.remove(true)).toThrow(TypeError);
   });
 
   test('getLength function should return 0 when the LinkedList is empty', () => {

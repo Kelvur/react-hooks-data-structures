@@ -62,6 +62,18 @@ describe('Stack', () => {
     expect(() => stack.get(86)).toThrow(RangeError);
   });
 
+  test('get function should throws a TypeError when passed a index which type is not integer', () => {
+    const stack = new Stack();
+
+    stack.add('x');
+
+    expect(() => stack.get(null)).toThrow(TypeError);
+    expect(() => stack.get()).toThrow(TypeError);
+    expect(() => stack.get('1')).toThrow(TypeError);
+    expect(() => stack.get(6.4)).toThrow(TypeError);
+    expect(() => stack.get(true)).toThrow(TypeError);
+  });
+
   test('set function should set the correct value in the indicated index', () => {
     const stack = new Stack();
     const value = 'Coconut';
@@ -101,6 +113,18 @@ describe('Stack', () => {
     stack.push('x');
 
     expect(() => stack.set(38, 'Horse')).toThrow(RangeError);
+  });
+
+  test('set function should throws a TypeError when passed a index which type is not integer', () => {
+    const stack = new Stack();
+
+    stack.add('x');
+
+    expect(() => stack.set(null)).toThrow(TypeError);
+    expect(() => stack.set()).toThrow(TypeError);
+    expect(() => stack.set('1')).toThrow(TypeError);
+    expect(() => stack.set(6.4)).toThrow(TypeError);
+    expect(() => stack.set(true)).toThrow(TypeError);
   });
 
   test('pop function should do the same of the remove function', () => {
