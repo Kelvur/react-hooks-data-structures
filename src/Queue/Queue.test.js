@@ -217,6 +217,15 @@ describe('Queue', () => {
     expect(() => queue.get(0)).toThrow(RangeError);
   });
 
+  test('destroy function should work when empty', () => {
+    const queue = new Queue();
+
+    queue.destroy();
+
+    expect(queue.getLength()).toBe(0);
+    expect(() => queue.get(0)).toThrow(RangeError);
+  });
+
   test('getValues function return all the values', () => {
     const queue = new Queue();
 

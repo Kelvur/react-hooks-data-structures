@@ -217,6 +217,15 @@ describe('LinkedList', () => {
     expect(() => linkedList.get(0)).toThrow(RangeError);
   });
 
+  test('destroy function should work when empty', () => {
+    const linkedList = new LinkedList();
+
+    linkedList.destroy();
+
+    expect(linkedList.getLength()).toBe(0);
+    expect(() => linkedList.get(0)).toThrow(RangeError);
+  });
+
   test('getValues function return all the values', () => {
     const linkedList = new LinkedList();
 

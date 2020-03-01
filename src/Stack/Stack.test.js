@@ -196,6 +196,15 @@ describe('Stack', () => {
     expect(() => stack.get(0)).toThrow(RangeError);
   });
 
+  test('destroy function should work when empty', () => {
+    const stack = new Stack();
+
+    stack.destroy();
+
+    expect(stack.getLength()).toBe(0);
+    expect(() => stack.get(0)).toThrow(RangeError);
+  });
+
   test('getValues function return all the values', () => {
     const stack = new Stack();
 
